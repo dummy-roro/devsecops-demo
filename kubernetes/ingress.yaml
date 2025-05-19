@@ -8,7 +8,7 @@ metadata:
     # nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
-  - host: 4.159.225.194  # Replace with your actual domain
+  - host: robooot.duckdns.org  # Replace with your actual domain
     http:
       paths:
       - path: /
