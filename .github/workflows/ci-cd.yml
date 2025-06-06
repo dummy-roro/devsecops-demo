@@ -101,13 +101,13 @@ jobs:
   #           -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
   #           -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info || true
 
-      - name: Wait for Sonar Quality Gate
-        uses: sonarsource/sonarqube-quality-gate-action@master
-        with:
-          scanMetadataReportFile: .scannerwork/report-task.txt
-          failPipelineOnQualityGateFailure: false # set to true to fail the pipeline on quality gate failure
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      # - name: Wait for Sonar Quality Gate
+      #   uses: sonarsource/sonarqube-quality-gate-action@master
+      #   with:
+      #     scanMetadataReportFile: .scannerwork/report-task.txt
+      #     failPipelineOnQualityGateFailure: false # set to true to fail the pipeline on quality gate failure
+      #   env:
+      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   owasp-scan:
     name: OWASP Dependency Check
