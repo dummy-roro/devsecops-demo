@@ -57,17 +57,17 @@ jobs:
         run: npm run lint
 
   gitleaks:
-  name: GitLeaks Secrets Scan
-  runs-on: ubuntu-latest
-  steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+    name: GitLeaks Secrets Scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Run GitLeaks manually
-      run: |
-        curl -sSL https://github.com/gitleaks/gitleaks/releases/latest/download/gitleaks-linux-amd64 -o gitleaks
-        chmod +x gitleaks
-        ./gitleaks detect --source . --verbose --redact
+      - name: Run GitLeaks manually
+        run: |
+          curl -sSL https://github.com/gitleaks/gitleaks/releases/latest/download/gitleaks-linux-amd64 -o gitleaks
+          chmod +x gitleaks
+          ./gitleaks detect --source . --verbose --redact
 
   build:
     name: Build
