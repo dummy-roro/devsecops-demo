@@ -32,6 +32,11 @@ jobs:
       - name: Run tests
         run: npm test || echo "No tests found, would add tests in a real project"
 
+      - name: Code Coverage
+        run: npm run coverage
+        continue-on-error: true
+        
+
   lint:
     name: SAST
     runs-on: ubuntu-latest
@@ -52,16 +57,17 @@ jobs:
         run: npm run lint
 
   gitleaks:
-    name: GitLeaks Secrets Scan
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+  name: GitLeaks Secrets Scan
+  runs-on: ubuntu-latest
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
 
-      - name: Run GitLeaks scan
-        uses: gitleaks/gitleaks-action@v2
-        with:
-          args: --verbose --redact
+    - name: Run GitLeaks manually
+      run: |
+        curl -sSL https://github.com/gitleaks/gitleaks/releases/latest/download/gitleaks-linux-amd64 -o gitleaks
+        chmod +x gitleaks
+        ./gitleaks detect --source . --verbose --redact
 
   build:
     name: Build
