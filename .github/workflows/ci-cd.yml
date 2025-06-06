@@ -71,7 +71,44 @@ jobs:
 
       - name: Run GitLeaks scan
         run: ./gitleaks detect --source . --verbose --redact
+        
+  # sonarqube-scan:
+  #   name: SonarQube Scan
+  #   runs-on: ubuntu-latest
+  #   needs: [test, lint, gitleaks]
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v4
 
+  #     - name: Setup Node.js
+  #       uses: actions/setup-node@v4
+  #       with:
+  #         node-version: '24.1.0'
+  #         cache: 'npm'
+
+  #     - name: Install dependencies
+  #       run: npm ci
+
+  #     - name: Run SonarQube Scanner
+  #       env:
+  #         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  #       run: |
+  #         npm install -g sonarqube-scanner
+  #         sonar-scanner \
+  #           -Dsonar.projectKey=Solar-System \
+  #           -Dsonar.sources=. \
+  #           -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
+  #           -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
+  #           -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info || true
+
+  #     - name: Wait for Sonar Quality Gate
+  #       uses: sonarsource/sonarqube-quality-gate-action@master
+  #       with:
+  #         scanMetadataReportFile: .scannerwork/report-task.txt
+  #         failPipelineOnQualityGateFailure: false # set to true to fail the pipeline on quality gate failure
+  #       env:
+  #         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          
   owasp-scan:
     name: OWASP Dependency Check
     runs-on: ubuntu-latest
